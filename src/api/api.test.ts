@@ -1,8 +1,15 @@
-import { parseDateString, fetchBookingList } from './index';
+import {
+  parseDateString,
+  fetchBookingList,
+  fetchBookingDetails,
+} from './index';
 import { Studio } from './types';
 
 import normalBookingList from '../resources/bookinglists/normalBookingList.json';
 import emptyBookingList from '../resources/bookinglists/emptyBookingList.json';
+
+import bookingWithElements from '../resources/bookingDetails/bookingWithElements.json';
+import emptyBooking from '../resources/bookingDetails/emptyBooking.json';
 
 function mockFetch(mockedReturn?: unknown): void {
   global.fetch = jest.fn(() =>
@@ -27,7 +34,7 @@ describe('parseDateString', () => {
   });
 });
 
-describe('api', () => {
+describe('fetchBookingList', () => {
   it('parses filled booking list properly', async () => {
     mockFetch(normalBookingList);
     const fetchedBookingList = await fetchBookingList(0, 0, 0, Studio.Studio1);
@@ -39,5 +46,48 @@ describe('api', () => {
     mockFetch(emptyBookingList);
     const fetchedBookingList = await fetchBookingList(0, 0, 0, Studio.Studio1);
     expect(fetchedBookingList.length).toEqual(0);
+  });
+});
+
+describe('fetchBookingDetails', () => {
+  it('parses booking with elements properly', async () => {
+    mockFetch(bookingWithElements);
+    const fetchedBookingDetails = await fetchBookingDetails(
+      2020,
+      8,
+      25,
+      Studio.Studio1,
+      '00000070',
+    );
+
+    expect(fetchedBookingDetails.startTime).toEqual(
+      new Date(2020, 8, 25, 18, 0, 0, 0),
+    );
+    expect(fetchedBookingDetails.endTime).toEqual(
+      new Date(2020, 8, 25, 18, 29, 0, 0),
+    );
+    expect(fetchedBookingDetails.title).toEqual('Feber #1');
+    expect(fetchedBookingDetails.elements[0].title).toEqual(
+      'Husk å fjern reprise fra Autoavvikler',
+    );
+  });
+
+  it('parses booking with no elements properly', async () => {
+    mockFetch(emptyBooking);
+    const fetchedBookingDetails = await fetchBookingDetails(
+      2020,
+      9,
+      8,
+      Studio.Studio1,
+      '00000094',
+    );
+    expect(fetchedBookingDetails.startTime).toEqual(
+      new Date(2020, 9, 8, 11, 0, 0, 0),
+    );
+    expect(fetchedBookingDetails.endTime).toEqual(
+      new Date(2020, 9, 8, 11, 29, 0, 0),
+    );
+    expect(fetchedBookingDetails.title).toEqual('Lytt på nytt #1');
+    expect(fetchedBookingDetails.elements.length).toEqual(0);
   });
 });
