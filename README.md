@@ -1,13 +1,9 @@
-Baseline for React-prosjekter – satt opp sånn jeg liker å ha ting. Stikkord:
+# mixcloud-uploader
 
-- Streng Typescript
-- Eslint og Prettier med AirBnB Styleguide
-  - Sjekk linting med `npm run lintcheck` (for CI)
-  - Fiks det som autofikses kan med `npm run lintfix`
-- Absolute imports fra `src`
-
-Todo:
-
-- [ ] CI/CD config baseline for CircleCI/GitHub Actions/...?
-- [ ] Backend m Express
-- [ ] Docker
+PoC. Todo:
+- [ ] Fetch rundown information for one or more studio bookings via the Radio Revolt REST API
+- [ ] Generate tracklist according to the MixCloud API spec
+- [ ] Add show name, picture, description and mp3 file
+- [ ] Generate HTTP POST according to MC spec
+- [ ] Setup MixCloud Auth
+- [ ] Actually publish the thing
