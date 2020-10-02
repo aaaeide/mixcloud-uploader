@@ -1,0 +1,93 @@
+[
+  {
+    "endtime": "2020-09-25 07:29:00",
+    "startmode": "StartOnTime",
+    "id": "00000071",
+    "starttime": "2020-09-25 07:00:00",
+    "title": "RevoltMorgen #1"
+  },
+  {
+    "endtime": "2020-09-25 07:30:00",
+    "startmode": "StartOnTime",
+    "id": "00000072",
+    "starttime": "2020-09-25 07:29:00",
+    "title": "PROMO"
+  },
+  {
+    "endtime": "2020-09-25 08:00:00",
+    "startmode": "StartOnTime",
+    "id": "00000073",
+    "starttime": "2020-09-25 07:30:00",
+    "title": "RevoltMorgen #2"
+  },
+  {
+    "endtime": "2020-09-25 16:29:00",
+    "startmode": "StartOnTime",
+    "id": "0000006E",
+    "starttime": "2020-09-25 16:00:00",
+    "title": "Nesten Helg #1"
+  },
+  {
+    "endtime": "2020-09-25 16:30:00",
+    "startmode": "StartOnTime",
+    "id": "00000074",
+    "starttime": "2020-09-25 16:29:00",
+    "title": "PROMO"
+  },
+  {
+    "endtime": "2020-09-25 17:29:00",
+    "startmode": "StartOnTime",
+    "id": "00000075",
+    "starttime": "2020-09-25 16:30:00",
+    "title": "Nesten Helg #2"
+  },
+  {
+    "endtime": "2020-09-25 17:30:00",
+    "startmode": "StartOnTime",
+    "id": "00000076",
+    "starttime": "2020-09-25 17:29:00",
+    "title": "PROMO"
+  },
+  {
+    "endtime": "2020-09-25 18:00:00",
+    "startmode": "StartOnTime",
+    "id": "00000077",
+    "starttime": "2020-09-25 17:30:00",
+    "title": "Nesten Helg #3"
+  },
+  {
+    "endtime": "2020-09-25 18:29:00",
+    "startmode": "StartOnTime",
+    "id": "00000070",
+    "starttime": "2020-09-25 18:00:00",
+    "title": "Feber #1"
+  },
+  {
+    "endtime": "2020-09-25 18:30:00",
+    "startmode": "StartOnTime",
+    "id": "0000007A",
+    "starttime": "2020-09-25 18:29:00",
+    "title": "PROMO"
+  },
+  {
+    "endtime": "2020-09-25 19:29:00",
+    "startmode": "StartOnTime",
+    "id": "0000007B",
+    "starttime": "2020-09-25 18:30:00",
+    "title": "Feber #2"
+  },
+  {
+    "endtime": "2020-09-25 19:30:00",
+    "startmode": "StartOnTime",
+    "id": "0000007C",
+    "starttime": "2020-09-25 19:29:00",
+    "title": "PROMO"
+  },
+  {
+    "endtime": "2020-09-25 20:00:00",
+    "startmode": "StartOnTime",
+    "id": "0000007D",
+    "starttime": "2020-09-25 19:30:00",
+    "title": "Feber #3"
+  }
+]
