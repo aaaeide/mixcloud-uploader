@@ -1,8 +1,4 @@
-import {
-  parseDateString,
-  fetchBookingList,
-  fetchBookingDetails,
-} from './index';
+import { parseDateString, fetchBookingList, fetchBookingDetails } from './api';
 import { Studio } from './types';
 
 import normalBookingList from '../resources/bookinglists/normalBookingList.json';
