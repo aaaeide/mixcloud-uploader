@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -13,11 +13,17 @@ const checkedIcon = <CheckBoxIcon fontSize='small' />;
 interface BookingPickerProps {
   bookingList: Booking[];
   disabled: boolean;
+  setSelectedBookings: (b: Booking[]) => void;
 }
 const BookingPicker: React.FC<BookingPickerProps> = ({
   bookingList,
   disabled,
+  setSelectedBookings,
 }) => {
+  function handleChange(e: unknown, v: Booking[]): void {
+    setSelectedBookings(v);
+  }
+
   return (
     <Autocomplete
       disabled={disabled}
@@ -26,6 +32,7 @@ const BookingPicker: React.FC<BookingPickerProps> = ({
       options={bookingList}
       disableCloseOnSelect
       getOptionLabel={(option) => option.title}
+      onChange={handleChange}
       renderOption={(option, { selected }) => {
         const startTimeString =
           `${option.startTime.getHours().toString().padStart(2, '0')}:` +

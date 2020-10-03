@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 import { fetchBookingList, Booking, Studio } from '../api';
 
@@ -12,6 +13,8 @@ const App: React.FC = () => {
   const [selectedStudio, setSelectedStudio] = useState<Studio>(Studio.Studio1);
   const [currentBookingList, setCurrentBookingList] = useState<Booking[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [selectedBookings, setSelectedBookings] = useState<Booking[]>([]);
 
   /**
    * Fetch booking list whenever selectedDate changes.
@@ -31,6 +34,8 @@ const App: React.FC = () => {
     }
   }, [selectedDate, selectedStudio]);
 
+  console.log('CURRENTLY SELECTED BOOKINGS', selectedBookings);
+
   return (
     <Grid container spacing={3}>
       <Grid container justify='center' alignItems='center' xs={6}>
@@ -42,11 +47,15 @@ const App: React.FC = () => {
           selectStudio={setSelectedStudio}
         />
       </Grid>
-      <Grid item justify='center' xs={12}>
+      <Grid item xs={12}>
         <BookingPicker
           bookingList={currentBookingList}
           disabled={isLoading || selectedDate === null}
+          setSelectedBookings={setSelectedBookings}
         />
+      </Grid>
+      <Grid container justify='center' alignItems='center'>
+        <Button variant='contained'>Generer tracklist</Button>
       </Grid>
     </Grid>
   );
