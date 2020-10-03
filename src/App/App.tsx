@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import { fetchBookingList, Booking, Studio } from '../api';
 
+import Navbar from '../components/Navbar';
 import DatePicker from '../components/DatePicker';
 import StudioPicker from '../components/StudioPicker';
 import BookingPicker from '../components/BookingPicker';
@@ -37,7 +39,11 @@ const App: React.FC = () => {
   console.log('CURRENTLY SELECTED BOOKINGS', selectedBookings);
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={6}>
+      <Grid container justify='center' alignItems='center'>
+        <Navbar />
+        <Toolbar />
+      </Grid>
       <Grid container justify='center' alignItems='center' xs={6}>
         <DatePicker value={selectedDate} setValue={setSelectedDate} />
       </Grid>
@@ -55,7 +61,9 @@ const App: React.FC = () => {
         />
       </Grid>
       <Grid container justify='center' alignItems='center'>
-        <Button variant='contained'>Generer tracklist</Button>
+        <Button variant='contained' color='secondary'>
+          Generer tracklist
+        </Button>
       </Grid>
     </Grid>
   );
