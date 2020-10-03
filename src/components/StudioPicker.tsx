@@ -21,6 +21,7 @@ const StudioPicker: React.FC<StudioPickerProps> = ({
 
   return (
     <FormControl /* className={classes.formControl} */>
+      <FormHelperText>Velg studio</FormHelperText>
       <Select
         value={selectedStudio}
         onChange={handleChange}
@@ -35,7 +36,6 @@ const StudioPicker: React.FC<StudioPickerProps> = ({
         <MenuItem value={Studio.Studio2}>Studio 2</MenuItem>
         <MenuItem value={Studio.Autoavvikler}>Autoavvikler</MenuItem>
       </Select>
-      <FormHelperText>Placeholder</FormHelperText>
     </FormControl>
   );
 };

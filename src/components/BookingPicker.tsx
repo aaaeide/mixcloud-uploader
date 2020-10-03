@@ -47,15 +47,14 @@ const BookingPicker: React.FC<BookingPickerProps> = ({
           </>
         );
       }}
-      style={{ width: 500 }}
       renderInput={(params) => (
         <TextField
-          // Kokt fra material-ui sitt eksempel – ikke spør meg hva params består av men det funker
+          // Kokt fra material-ui: https://material-ui.com/components/autocomplete/#CheckboxesTags.tsx
+          // Ikke spør meg hva params består av men det funker
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...params}
           variant='outlined'
-          label={disabled ? 'Velg dato' : 'Valgte studiobookinger'}
-          placeholder='Favorites'
+          label={disabled ? 'Velg dato' : 'Velg studiobookinger'}
         />
       )}
     />

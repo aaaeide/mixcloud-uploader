@@ -32,16 +32,22 @@ const App: React.FC = () => {
   }, [selectedDate, selectedStudio]);
 
   return (
-    <Grid container justify='space-around'>
-      <DatePicker value={selectedDate} setValue={setSelectedDate} />
-      <StudioPicker
-        selectedStudio={selectedStudio}
-        selectStudio={setSelectedStudio}
-      />
-      <BookingPicker
-        bookingList={currentBookingList}
-        disabled={isLoading || selectedDate === null}
-      />
+    <Grid container spacing={3}>
+      <Grid container justify='center' alignItems='center' xs={6}>
+        <DatePicker value={selectedDate} setValue={setSelectedDate} />
+      </Grid>
+      <Grid container justify='center' alignItems='center' xs={6}>
+        <StudioPicker
+          selectedStudio={selectedStudio}
+          selectStudio={setSelectedStudio}
+        />
+      </Grid>
+      <Grid item justify='center' xs={12}>
+        <BookingPicker
+          bookingList={currentBookingList}
+          disabled={isLoading || selectedDate === null}
+        />
+      </Grid>
     </Grid>
   );
 };
