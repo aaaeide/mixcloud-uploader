@@ -11,6 +11,11 @@ import emptyBookingList from '../resources/bookinglists/emptyBookingList.json';
 import bookingWithElements from '../resources/bookingDetails/bookingWithElements.json';
 import emptyBooking from '../resources/bookingDetails/emptyBooking.json';
 
+/**
+ * Mocks the fetch function used by the API methods to always
+ * return mockedReturn. Useful for testing certain results from
+ * the API without actually calling it.
+ */
 function mockFetch(mockedReturn?: unknown): void {
   global.fetch = jest.fn(() =>
     Promise.resolve({
