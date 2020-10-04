@@ -7,6 +7,7 @@ import { fetchBookingList, fetchBookingDetails } from 'api';
 
 import Navbar from 'components/Navbar';
 import BookingSelectionForm from 'components/BookingSelectionForm';
+import Tracklist from 'components/Tracklist';
 
 import {
   reducer,
@@ -19,7 +20,13 @@ import {
 
 const App: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { selectedDate, selectedStudio, selectedBookings } = state;
+  const {
+    selectedDate,
+    selectedStudio,
+    selectedBookings,
+    bookingDetails,
+    bookingDetailsLoading,
+  } = state;
 
   /**
    * Fetch booking list whenever selectedDate changes.
@@ -42,7 +49,7 @@ const App: React.FC = () => {
   async function generateTracklist(): Promise<void> {
     dispatch(setBookingDetailsLoading(true));
 
-    const bookingDetails = await Promise.all(
+    const fetchedBookingDetails = await Promise.all(
       selectedBookings.map((booking) => {
         const { startTime: date, id, studio } = booking;
 
@@ -56,7 +63,7 @@ const App: React.FC = () => {
       }),
     );
 
-    dispatch(setBookingDetails(bookingDetails));
+    dispatch(setBookingDetails(fetchedBookingDetails));
     dispatch(setBookingDetailsLoading(false));
   }
 
@@ -73,7 +80,12 @@ const App: React.FC = () => {
           onSubmit={generateTracklist}
         />
       </Grid>
-      <Grid item md={5} sm={12} />
+      <Grid item md={5} sm={12}>
+        <Tracklist
+          bookingDetails={bookingDetails}
+          isLoading={bookingDetailsLoading}
+        />
+      </Grid>
     </Grid>
   );
 };
