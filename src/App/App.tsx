@@ -1,9 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import { fetchBookingList, Booking, Studio } from '../api';
+
+import {
+  reducer,
+  initialState,
+  selectDate,
+  selectStudio,
+  setCurrentBookingList,
+  setBookingListLoading,
+  setSelectedBookings,
+} from '../state';
 
 import Navbar from '../components/Navbar';
 import DatePicker from '../components/DatePicker';
@@ -11,19 +21,23 @@ import StudioPicker from '../components/StudioPicker';
 import BookingPicker from '../components/BookingPicker';
 
 const App: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [selectedStudio, setSelectedStudio] = useState<Studio>(Studio.Studio1);
-  const [currentBookingList, setCurrentBookingList] = useState<Booking[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const [selectedBookings, setSelectedBookings] = useState<Booking[]>([]);
+  const [
+    {
+      selectedDate,
+      selectedStudio,
+      currentBookingList,
+      bookingListLoading,
+      selectedBookings,
+    },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   /**
    * Fetch booking list whenever selectedDate changes.
    */
   useEffect(() => {
     if (selectedDate !== null) {
-      setIsLoading(true);
+      dispatch(setBookingListLoading(true));
 
       fetchBookingList(
         selectedDate.getFullYear(),
@@ -31,8 +45,8 @@ const App: React.FC = () => {
         selectedDate.getDate(),
         selectedStudio,
       )
-        .then((bookingList) => setCurrentBookingList(bookingList))
-        .then(() => setIsLoading(false));
+        .then((bookingList) => dispatch(setCurrentBookingList(bookingList)))
+        .then(() => dispatch(setBookingListLoading(false)));
     }
   }, [selectedDate, selectedStudio]);
 
@@ -45,19 +59,24 @@ const App: React.FC = () => {
         <Toolbar />
       </Grid>
       <Grid container justify='center' alignItems='center' xs={6}>
-        <DatePicker value={selectedDate} setValue={setSelectedDate} />
+        <DatePicker
+          value={selectedDate}
+          setValue={(d: Date | null) => dispatch(selectDate(d))}
+        />
       </Grid>
       <Grid container justify='center' alignItems='center' xs={6}>
         <StudioPicker
           selectedStudio={selectedStudio}
-          selectStudio={setSelectedStudio}
+          selectStudio={(s: Studio) => dispatch(selectStudio(s))}
         />
       </Grid>
       <Grid item xs={12}>
         <BookingPicker
           bookingList={currentBookingList}
-          disabled={isLoading || selectedDate === null}
-          setSelectedBookings={setSelectedBookings}
+          disabled={bookingListLoading || selectedDate === null}
+          setSelectedBookings={(bs: Booking[]) =>
+            dispatch(setSelectedBookings(bs))
+          }
         />
       </Grid>
       <Grid container justify='center' alignItems='center'>
