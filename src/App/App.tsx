@@ -1,36 +1,23 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
+
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import { fetchBookingList, Booking, Studio } from '../api';
+import { fetchBookingList } from 'api';
+
+import Navbar from 'components/Navbar';
+import BookingSelectionForm from 'components/BookingSelectionForm';
 
 import {
   reducer,
   initialState,
-  selectDate,
-  selectStudio,
   setCurrentBookingList,
   setBookingListLoading,
-  setSelectedBookings,
 } from '../state';
 
-import Navbar from '../components/Navbar';
-import DatePicker from '../components/DatePicker';
-import StudioPicker from '../components/StudioPicker';
-import BookingPicker from '../components/BookingPicker';
-
 const App: React.FC = () => {
-  const [
-    {
-      selectedDate,
-      selectedStudio,
-      currentBookingList,
-      bookingListLoading,
-      selectedBookings,
-    },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { selectedDate, selectedStudio, selectedBookings } = state;
 
   /**
    * Fetch booking list whenever selectedDate changes.
@@ -58,32 +45,10 @@ const App: React.FC = () => {
         <Navbar />
         <Toolbar />
       </Grid>
-      <Grid container justify='center' alignItems='center' xs={6}>
-        <DatePicker
-          value={selectedDate}
-          setValue={(d: Date | null) => dispatch(selectDate(d))}
-        />
+      <Grid item md={8} sm={12}>
+        <BookingSelectionForm state={state} dispatch={dispatch} />
       </Grid>
-      <Grid container justify='center' alignItems='center' xs={6}>
-        <StudioPicker
-          selectedStudio={selectedStudio}
-          selectStudio={(s: Studio) => dispatch(selectStudio(s))}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <BookingPicker
-          bookingList={currentBookingList}
-          disabled={bookingListLoading || selectedDate === null}
-          setSelectedBookings={(bs: Booking[]) =>
-            dispatch(setSelectedBookings(bs))
-          }
-        />
-      </Grid>
-      <Grid container justify='center' alignItems='center'>
-        <Button variant='contained' color='secondary'>
-          Generer tracklist
-        </Button>
-      </Grid>
+      <Grid item md={4} sm={12} />
     </Grid>
   );
 };

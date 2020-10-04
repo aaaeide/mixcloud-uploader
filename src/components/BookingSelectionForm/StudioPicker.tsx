@@ -4,7 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { Studio } from '../api';
+import { Studio } from 'api';
 
 interface StudioPickerProps {
   selectedStudio: Studio;
