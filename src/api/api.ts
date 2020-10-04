@@ -33,6 +33,7 @@ export async function fetchBookingList(
     endTime: parseDateString(apiBooking.endtime),
     title: apiBooking.title,
     id: apiBooking.id,
+    studio,
   }));
 
   return bookingList;
@@ -54,6 +55,7 @@ export async function fetchBookingDetails(
     title: data.metadata.title,
     startTime: parseDateString(data.metadata.starttime),
     endTime: parseDateString(data.metadata.endtime),
+    studio,
     elements: data.elements.map((apiElement) => ({
       id: apiElement.id,
       title: apiElement.title,

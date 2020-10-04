@@ -5,6 +5,7 @@ export interface Booking {
   endTime: Date;
   title: string;
   id: string;
+  studio: Studio;
 }
 
 /* Type used to represent the booking as received from the API. */
@@ -63,5 +64,6 @@ export interface BookingDetails {
   title: string;
   startTime: Date;
   endTime: Date;
+  studio: Studio;
   elements: Element[];
 }
