@@ -6,6 +6,8 @@ import {
   SET_BOOKING_LIST_LOADING,
   SET_CURRENT_BOOKING_LIST,
   SET_SELECTED_BOOKINGS,
+  SET_BOOKING_DETAILS,
+  SET_BOOKING_DETAILS_LOADING,
   ReducerActionsType,
 } from './types';
 
@@ -15,12 +17,15 @@ export const initialState: ReducerState = {
   currentBookingList: [],
   bookingListLoading: false,
   selectedBookings: [],
+  bookingDetails: [],
+  bookingDetailsLoading: false,
 };
 
 export function reducer(
   state: ReducerState,
   action: ReducerActionsType,
 ): ReducerState {
+  console.log('REDUCER RECVD ACTION', action);
   switch (action.type) {
     case SELECT_DATE:
       return {
@@ -46,6 +51,16 @@ export function reducer(
       return {
         ...state,
         selectedBookings: action.payload.selectedBookings,
+      };
+    case SET_BOOKING_DETAILS:
+      return {
+        ...state,
+        bookingDetails: action.payload.bookingDetails,
+      };
+    case SET_BOOKING_DETAILS_LOADING:
+      return {
+        ...state,
+        bookingDetailsLoading: action.payload.isLoading,
       };
     default:
       return state;

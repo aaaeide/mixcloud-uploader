@@ -1,15 +1,19 @@
-import { Studio, Booking } from '../api';
+import { Studio, Booking, BookingDetails } from '../api';
 import {
   SELECT_DATE,
   SELECT_STUDIO,
   SET_BOOKING_LIST_LOADING,
   SET_CURRENT_BOOKING_LIST,
   SET_SELECTED_BOOKINGS,
+  SET_BOOKING_DETAILS,
+  SET_BOOKING_DETAILS_LOADING,
   SelectDateAction,
   SelectStudioAction,
   SetBookingListLoadingAction,
   SetCurrentBookingListAction,
   SetSelectedBookingsAction,
+  SetBookingDetailsAction,
+  SetBookingDetailsLoadingAction,
 } from './types';
 
 export function selectDate(date: Date | null): SelectDateAction {
@@ -50,5 +54,23 @@ export function setSelectedBookings(
   return {
     type: SET_SELECTED_BOOKINGS,
     payload: { selectedBookings: bookings },
+  };
+}
+
+export function setBookingDetails(
+  bookingDetails: BookingDetails[],
+): SetBookingDetailsAction {
+  return {
+    type: SET_BOOKING_DETAILS,
+    payload: { bookingDetails },
+  };
+}
+
+export function setBookingDetailsLoading(
+  isLoading: boolean,
+): SetBookingDetailsLoadingAction {
+  return {
+    type: SET_BOOKING_DETAILS_LOADING,
+    payload: { isLoading },
   };
 }

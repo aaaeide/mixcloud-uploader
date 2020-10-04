@@ -18,11 +18,13 @@ import DatePicker from './DatePicker';
 interface BookingSelectionFormProps {
   state: ReducerState;
   dispatch: React.Dispatch<ReducerActionsType>;
+  onSubmit: () => void;
 }
 
 const BookingSelectionForm: React.FC<BookingSelectionFormProps> = ({
   state,
   dispatch,
+  onSubmit,
 }) => {
   const {
     selectedDate,
@@ -55,7 +57,7 @@ const BookingSelectionForm: React.FC<BookingSelectionFormProps> = ({
         />
       </Grid>
       <Grid container justify='center' alignItems='center'>
-        <Button variant='contained' color='secondary'>
+        <Button variant='contained' color='secondary' onClick={onSubmit}>
           Generer tracklist
         </Button>
       </Grid>
