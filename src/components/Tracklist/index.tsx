@@ -42,6 +42,16 @@ interface TracklistProps {
 const Tracklist: React.FC<TracklistProps> = ({ bookingDetails, isLoading }) => {
   const classes = useStyles();
 
+  if (isLoading) {
+    return (
+      <Paper elevation={3} className={classes.root}>
+        <List>
+          <CircularProgress color='secondary' />
+        </List>
+      </Paper>
+    );
+  }
+
   if (bookingDetails.length === 0) {
     return (
       <Paper elevation={3} className={classes.root}>
@@ -49,16 +59,6 @@ const Tracklist: React.FC<TracklistProps> = ({ bookingDetails, isLoading }) => {
           <ListItem>
             <ListItemText primary='Ingenting å vise.' />
           </ListItem>
-        </List>
-      </Paper>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <Paper elevation={3} className={classes.root}>
-        <List>
-          <CircularProgress />
         </List>
       </Paper>
     );
