@@ -10,3 +10,7 @@ PoC. Todo:
 - [ ] Setup MixCloud Auth
 - [ ] Actually publish the thing
 - [ ] Add setting for filtering promo bookings from booking selection dropdown
+
+## See also:
+- MixCloud API documentation: https://www.mixcloud.com/developers/
+- Radio Revolt API documentation (private): https://github.com/Studentmediene/radio-rest-api
