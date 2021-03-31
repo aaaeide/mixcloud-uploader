@@ -1,7 +1,6 @@
 import { Tracklist, Element } from 'api';
+import { bookingDetailsList } from 'resources/tracklist';
 import { generateTracklist } from './generateTracklist';
-
-import { bookingDetailsList } from '../../resources/tracklist';
 
 describe('generateTracklist', () => {
   let generatedTracklist: Tracklist;

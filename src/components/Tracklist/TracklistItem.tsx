@@ -10,7 +10,7 @@ import {
 import { Delete, MusicNote, VolumeUp, Forum } from '@material-ui/icons';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import { Element } from 'api';
+import { Section } from 'api';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,22 +25,22 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const TracklistItem: React.FC<{ element: Element }> = ({ element }) => {
+const TracklistItem: React.FC<{ section: Section }> = ({ section }) => {
   const classes = useStyles();
 
   const Icon: React.FC = () => {
-    if (element.class === 'Music') return <MusicNote />;
-    if (element.class === 'Promotion') return <VolumeUp />;
+    if (section.type === 'Track') return <MusicNote />;
+    if (section.type === 'Jingle') return <VolumeUp />;
     return <Forum />;
   };
 
   return (
     <Paper elevation={6} className={classes.paper}>
-      <ListItem key={element.id}>
+      <ListItem key={section.startTime}>
         <ListItemIcon className={classes.icon}>
           <Icon />
         </ListItemIcon>
-        <ListItemText primary={element.title} />
+        <ListItemText primary={section.title} />
         <ListItemSecondaryAction>
           <IconButton edge='end'>
             <Delete />

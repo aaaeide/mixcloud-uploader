@@ -6,7 +6,7 @@ import {
   SET_BOOKING_LIST_LOADING,
   SET_CURRENT_BOOKING_LIST,
   SET_SELECTED_BOOKINGS,
-  SET_BOOKING_DETAILS,
+  SET_TRACKLIST,
   SET_BOOKING_DETAILS_LOADING,
   ReducerActionsType,
 } from './types';
@@ -17,7 +17,7 @@ export const initialState: ReducerState = {
   currentBookingList: [],
   bookingListLoading: false,
   selectedBookings: [],
-  bookingDetails: [],
+  tracklist: null,
   bookingDetailsLoading: false,
 };
 
@@ -52,10 +52,10 @@ export function reducer(
         ...state,
         selectedBookings: action.payload.selectedBookings,
       };
-    case SET_BOOKING_DETAILS:
+    case SET_TRACKLIST:
       return {
         ...state,
-        bookingDetails: action.payload.bookingDetails,
+        tracklist: action.payload.tracklist,
       };
     case SET_BOOKING_DETAILS_LOADING:
       return {

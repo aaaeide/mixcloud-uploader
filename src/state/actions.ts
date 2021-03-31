@@ -1,18 +1,18 @@
-import { Studio, Booking, BookingDetails } from '../api';
+import { Studio, Booking, Tracklist } from '../api';
 import {
   SELECT_DATE,
   SELECT_STUDIO,
   SET_BOOKING_LIST_LOADING,
   SET_CURRENT_BOOKING_LIST,
   SET_SELECTED_BOOKINGS,
-  SET_BOOKING_DETAILS,
+  SET_TRACKLIST,
   SET_BOOKING_DETAILS_LOADING,
   SelectDateAction,
   SelectStudioAction,
   SetBookingListLoadingAction,
   SetCurrentBookingListAction,
   SetSelectedBookingsAction,
-  SetBookingDetailsAction,
+  SetTracklistAction,
   SetBookingDetailsLoadingAction,
 } from './types';
 
@@ -57,12 +57,10 @@ export function setSelectedBookings(
   };
 }
 
-export function setBookingDetails(
-  bookingDetails: BookingDetails[],
-): SetBookingDetailsAction {
+export function setTracklist(tracklist: Tracklist): SetTracklistAction {
   return {
-    type: SET_BOOKING_DETAILS,
-    payload: { bookingDetails },
+    type: SET_TRACKLIST,
+    payload: { tracklist },
   };
 }
 

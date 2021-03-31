@@ -8,7 +8,7 @@ import {
   Paper,
 } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { BookingDetails } from 'api';
+import { Tracklist } from 'api';
 import TracklistItem from './TracklistItem';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,12 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface TracklistEditorProps {
-  bookingDetails: BookingDetails[];
+  tracklist: Tracklist | null;
   isLoading: boolean;
 }
 
 const TracklistEditor: React.FC<TracklistEditorProps> = ({
-  bookingDetails,
+  tracklist,
   isLoading,
 }) => {
   const classes = useStyles();
@@ -55,7 +55,7 @@ const TracklistEditor: React.FC<TracklistEditorProps> = ({
     );
   }
 
-  if (bookingDetails.length === 0) {
+  if (tracklist === null || tracklist.sections.length === 0) {
     return (
       <Paper elevation={3} className={classes.root}>
         <List>
@@ -70,17 +70,11 @@ const TracklistEditor: React.FC<TracklistEditorProps> = ({
   return (
     <Paper elevation={3} className={classes.root}>
       <List subheader={<li />}>
-        {bookingDetails.map((booking) => (
-          <li key={booking.id}>
-            <ul className={classes.ul}>
-              <ListSubheader className={classes.subheader}>
-                {booking.title}
-              </ListSubheader>
-              {booking.elements.map((element) => (
-                <TracklistItem element={element} />
-              ))}
-            </ul>
-          </li>
+        <ListSubheader className={classes.subheader}>
+          {tracklist.name}
+        </ListSubheader>
+        {tracklist.sections.map((section) => (
+          <TracklistItem section={section} />
         ))}
       </List>
     </Paper>

@@ -8,13 +8,14 @@ import { fetchBookingList, fetchBookingDetails } from 'api';
 import Navbar from 'components/Navbar';
 import BookingSelectionForm from 'components/BookingSelectionForm';
 import TracklistEditor from 'components/Tracklist';
+import { generateTracklist } from './generateTracklist';
 
 import {
   reducer,
   initialState,
   setCurrentBookingList,
   setBookingListLoading,
-  setBookingDetails,
+  setTracklist,
   setBookingDetailsLoading,
 } from '../state';
 
@@ -24,7 +25,7 @@ const App: React.FC = () => {
     selectedDate,
     selectedStudio,
     selectedBookings,
-    bookingDetails,
+    tracklist,
     bookingDetailsLoading,
   } = state;
 
@@ -46,7 +47,7 @@ const App: React.FC = () => {
     }
   }, [selectedDate, selectedStudio]);
 
-  async function generateTracklist(): Promise<void> {
+  async function fetchDetailsAndGenerateTracklist(): Promise<void> {
     dispatch(setBookingDetailsLoading(true));
 
     const fetchedBookingDetails = await Promise.all(
@@ -63,7 +64,9 @@ const App: React.FC = () => {
       }),
     );
 
-    dispatch(setBookingDetails(fetchedBookingDetails));
+    const generatedTracklist = generateTracklist(fetchedBookingDetails);
+
+    dispatch(setTracklist(generatedTracklist));
     dispatch(setBookingDetailsLoading(false));
   }
 
@@ -77,12 +80,12 @@ const App: React.FC = () => {
         <BookingSelectionForm
           state={state}
           dispatch={dispatch}
-          onSubmit={generateTracklist}
+          onSubmit={fetchDetailsAndGenerateTracklist}
         />
       </Grid>
       <Grid item md={5} sm={12}>
         <TracklistEditor
-          bookingDetails={bookingDetails}
+          tracklist={tracklist}
           isLoading={bookingDetailsLoading}
         />
       </Grid>

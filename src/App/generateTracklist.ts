@@ -1,4 +1,4 @@
-import { BookingDetails, Element, Tracklist, Section } from '../../api';
+import { BookingDetails, Element, Tracklist, Section } from 'api';
 
 export function generateTracklist(
   bookingDetailList: BookingDetails[],
