@@ -14,8 +14,12 @@ describe('generateTracklist', () => {
     );
   });
 
-  it('sets the name of the generated tracklist to the name of the first booking', () => {
-    expect(generatedTracklist.name).toEqual(bookingDetailsList[0].title);
+  it('sets the name of the generated tracklist to the name of the selected bookings, comma-separated', () => {
+    const name = bookingDetailsList
+      .reduce<string>((nm, bd) => `${nm}${bd.title}, `, '')
+      .slice(0, -2);
+
+    expect(generatedTracklist.name).toEqual(name);
   });
 
   it('converts Date to second offset from start', () => {

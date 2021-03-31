@@ -42,9 +42,13 @@ export function generateTracklist(
     }
   });
 
+  const name = bookingDetailList
+    .reduce<string>((nm, bd) => `${nm + bd.title}, `, '')
+    .slice(0, -2);
+
   return {
     mp3: null,
-    name: bookingDetailList[0].title,
+    name,
     picture: null,
     description: '',
     tags: [],
