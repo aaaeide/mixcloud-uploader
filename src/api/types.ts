@@ -82,16 +82,16 @@ export interface Tracklist {
   tags: string[];
   /* ONLY FOR UPLOADING TO PRO ACCOUNTS. Scheduled publish date for the upload in the format YYYY-MM-DDTHH:MM:SSZ 
   (e.g. 2015-11-21T14:05:00Z). Note: the date MUST be UTC so you may need to convert for your local timezone first. */
-  publish_date: Date;
+  publish_date?: Date;
   /* ONLY FOR UPLOADING TO PRO ACCOUNTS. Disable comments for this upload */
-  disable_comments: boolean;
+  disable_comments?: boolean;
   /* ONLY FOR UPLOADING TO PRO ACCOUNTS. Hide play, favorite and repost counts for this upload */
-  hide_stats: boolean;
+  hide_stats?: boolean;
   /* ONLY FOR UPLOADING TO PRO ACCOUNTS. Make this upload unlisted. The upload will not appear under your profile page 
   when other users visit it. Only users who know the upload's link will have access to it. */
-  unlisted: boolean;
+  unlisted?: boolean;
   /* Track/chapter information. */
-  secions: Section[];
+  sections: Section[];
 }
 
 export interface Track {
