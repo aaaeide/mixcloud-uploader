@@ -69,7 +69,7 @@ export interface BookingDetails {
 }
 
 /* The tracklist according to MixCloud spec. */
-export interface TrackList {
+export interface Tracklist {
   /* REQUIRED. The audio file to be uploaded. The file should not be larger than 4294967296 bytes. */
   mp3: unknown;
   /* REQUIRED (if a track). The track section song title. */

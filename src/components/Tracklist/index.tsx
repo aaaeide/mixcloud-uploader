@@ -34,12 +34,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface TracklistProps {
+interface TracklistEditorProps {
   bookingDetails: BookingDetails[];
   isLoading: boolean;
 }
 
-const Tracklist: React.FC<TracklistProps> = ({ bookingDetails, isLoading }) => {
+const TracklistEditor: React.FC<TracklistEditorProps> = ({
+  bookingDetails,
+  isLoading,
+}) => {
   const classes = useStyles();
 
   if (isLoading) {
@@ -84,4 +87,4 @@ const Tracklist: React.FC<TracklistProps> = ({ bookingDetails, isLoading }) => {
   );
 };
 
-export default Tracklist;
+export default TracklistEditor;

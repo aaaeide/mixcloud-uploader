@@ -7,7 +7,7 @@ import { fetchBookingList, fetchBookingDetails } from 'api';
 
 import Navbar from 'components/Navbar';
 import BookingSelectionForm from 'components/BookingSelectionForm';
-import Tracklist from 'components/Tracklist';
+import TracklistEditor from 'components/Tracklist';
 
 import {
   reducer,
@@ -81,7 +81,7 @@ const App: React.FC = () => {
         />
       </Grid>
       <Grid item md={5} sm={12}>
-        <Tracklist
+        <TracklistEditor
           bookingDetails={bookingDetails}
           isLoading={bookingDetailsLoading}
         />

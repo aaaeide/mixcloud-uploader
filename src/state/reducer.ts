@@ -25,7 +25,7 @@ export function reducer(
   state: ReducerState,
   action: ReducerActionsType,
 ): ReducerState {
-  console.log('REDUCER RECVD ACTION', action);
+  /* console.log('REDUCER RECVD ACTION', action); */
   switch (action.type) {
     case SELECT_DATE:
       return {
