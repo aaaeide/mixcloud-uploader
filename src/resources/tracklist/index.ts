@@ -75,33 +75,3 @@ export const bookingDetailsList: BookingDetails[] = [
     studio: Studio.Studio1,
   },
 ];
-
-export const tracklist: Tracklist = {
-  mp3: null,
-  name: 'Feber #1',
-  picture: null,
-  description: '',
-  tags: [],
-  sections: [
-    {
-      name: '\u00c5PNING - Feber',
-      startTime: 0,
-    },
-    {
-      artist: 'MadeinTYO, Toro y Moi',
-      song: 'Money Up (feat. Toro y Moi)',
-      startTime: 32,
-    },
-
-    {
-      artist: '',
-      song: 'Jay Rock - No Joke (FEBER)',
-      startTime: 183,
-    },
-    {
-      artist: 'Lil Wayne',
-      song: 'Holy',
-      startTime: 293,
-    },
-  ],
-};

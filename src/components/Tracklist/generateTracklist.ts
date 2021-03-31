@@ -15,17 +15,30 @@ export function generateTracklist(
       (el.startTime.getTime() - showStartDate) / 1000,
     );
 
-    if (el.class === 'Music') {
-      sections.push({
-        artist: el.artist ?? '',
-        song: el.title,
-        startTime,
-      });
-    } else {
-      sections.push({
-        name: el.title,
-        startTime,
-      });
+    // eslint-disable-next-line default-case
+    switch (el.class) {
+      case 'Music':
+        sections.push({
+          type: 'Track',
+          title: el.title,
+          artist: el.artist ?? '',
+          startTime,
+        });
+        break;
+      case 'Promotion':
+        sections.push({
+          type: 'Jingle',
+          title: el.title,
+          startTime,
+        });
+        break;
+      case 'None':
+        sections.push({
+          type: 'Chapter',
+          title: el.title,
+          startTime,
+        });
+        break;
     }
   });
 

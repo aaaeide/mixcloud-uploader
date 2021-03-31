@@ -1,7 +1,7 @@
 import { Tracklist, Element } from 'api';
 import { generateTracklist } from './generateTracklist';
 
-import { bookingDetailsList, tracklist } from '../../resources/tracklist';
+import { bookingDetailsList } from '../../resources/tracklist';
 
 describe('generateTracklist', () => {
   let generatedTracklist: Tracklist;
@@ -31,19 +31,30 @@ describe('generateTracklist', () => {
     });
   });
 
-  it('converts Elements with class Music to Track sections, and others to Chapter sections', () => {
+  it('converts Elements with class Music to Track sections, class Promotion to Jingle sections and class None to Chapter sections', () => {
     elements.forEach((el, idx) => {
-      if (el.class === 'Music') {
-        expect(Object.keys(generatedTracklist.sections[idx])).toContain(
-          'artist',
-        );
-      } else {
-        expect(Object.keys(generatedTracklist.sections[idx])).toContain('name');
+      const section = generatedTracklist.sections[idx];
+      const sectionKeys = Object.keys(generatedTracklist.sections[idx]);
+
+      // eslint-disable-next-line default-case
+      switch (el.class) {
+        case 'Music':
+          expect(section.type).toEqual('Track');
+          expect(sectionKeys).toContain('artist');
+          break;
+        case 'Promotion':
+          expect(section.type).toEqual('Jingle');
+          expect(sectionKeys).not.toContain('artist');
+          break;
+        case 'None':
+          expect(section.type).toEqual('Chapter');
+          expect(sectionKeys).not.toContain('artist');
+          break;
       }
     });
   });
 
-  it.skip('generates a unified tracklist given a list of bookings', () => {
+  /* it.skip('generates a unified tracklist given a list of bookings', () => {
     expect(generateTracklist(bookingDetailsList)).toBe(tracklist);
-  });
+  }); */
 });
