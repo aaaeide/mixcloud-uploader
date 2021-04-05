@@ -5,6 +5,7 @@ import {
   ApiBooking,
   ApiBookingDetails,
   BookingDetails,
+  Element,
 } from './types';
 
 export const BROADCAST_API_URL = 'https://api.radiorevolt.no/v2/sendinger';
@@ -50,31 +51,40 @@ export async function fetchBookingDetails(
     `${BROADCAST_API_URL}/dato/${year}/${month}/${day}/${studio}/${id}`,
   );
   const data = (await response.json()) as ApiBookingDetails;
+  const visited = new Set<string>();
   const bookingDetails: BookingDetails = {
     id: data.metadata.id,
     title: data.metadata.title,
     startTime: parseDateString(data.metadata.starttime),
     endTime: parseDateString(data.metadata.endtime),
     studio,
-    elements: data.elements.map((apiElement) => ({
-      id: apiElement.id,
-      title: apiElement.title,
-      artist: apiElement.artist !== '' ? apiElement.artist : undefined,
-      album: apiElement.album !== '' ? apiElement.album : undefined,
-      info: apiElement.info !== '' ? apiElement.info : undefined,
-      sendState: apiElement.sendstate as 'Planned' | 'Skipped' | 'Sent',
-      class: apiElement.class as 'Music' | 'Promotion' | 'None',
-      startTime: parseDateString(
-        apiElement.actual_start !== ''
-          ? apiElement.actual_start
-          : apiElement.planned_start,
-      ),
-      endTime: parseDateString(
-        apiElement.actual_stop !== ''
-          ? apiElement.actual_stop
-          : apiElement.planned_stop,
-      ),
-    })),
+    elements: data.elements.reduce<Element[]>((elements, apiElement) => {
+      if (!visited.has(apiElement.id)) {
+        elements.push({
+          id: apiElement.id,
+          title: apiElement.title,
+          artist: apiElement.artist !== '' ? apiElement.artist : undefined,
+          album: apiElement.album !== '' ? apiElement.album : undefined,
+          info: apiElement.info !== '' ? apiElement.info : undefined,
+          sendState: apiElement.sendstate as 'Planned' | 'Skipped' | 'Sent',
+          class: apiElement.class as 'Music' | 'Promotion' | 'None',
+          startTime: parseDateString(
+            apiElement.actual_start !== ''
+              ? apiElement.actual_start
+              : apiElement.planned_start,
+          ),
+          endTime: parseDateString(
+            apiElement.actual_stop !== ''
+              ? apiElement.actual_stop
+              : apiElement.planned_stop,
+          ),
+        });
+
+        visited.add(apiElement.id);
+      }
+
+      return elements;
+    }, []),
   };
 
   return bookingDetails;

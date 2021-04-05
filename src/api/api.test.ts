@@ -79,4 +79,21 @@ describe('fetchBookingDetails', () => {
     expect(fetchedBookingDetails.title).toEqual('Lytt på nytt #1');
     expect(fetchedBookingDetails.elements.length).toEqual(0);
   });
+
+  it('filters duplicate elements', async () => {
+    mockFetch(bookingWithElements);
+    const fetchedBookingDetails = await fetchBookingDetails(
+      2020,
+      8,
+      25,
+      Studio.Studio1,
+      '00000070',
+    );
+
+    const uniqueIds = fetchedBookingDetails.elements.map((el) => el.id);
+
+    expect(fetchedBookingDetails.elements.length).toEqual(
+      Array.from(new Set(uniqueIds)).length,
+    );
+  });
 });
