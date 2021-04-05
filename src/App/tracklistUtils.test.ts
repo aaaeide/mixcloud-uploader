@@ -1,6 +1,6 @@
 import { Tracklist, Element } from 'api';
-import { bookingDetailsList } from 'resources/tracklist';
-import { generateTracklist } from './generateTracklist';
+import { bookingDetailsList, tracklistWithPromos } from 'resources/tracklist';
+import { generateTracklist, removePromoPause } from './tracklistUtils';
 
 describe('generateTracklist', () => {
   let generatedTracklist: Tracklist;
@@ -60,4 +60,15 @@ describe('generateTracklist', () => {
   /* it.skip('generates a unified tracklist given a list of bookings', () => {
     expect(generateTracklist(bookingDetailsList)).toBe(tracklist);
   }); */
+});
+
+describe('removePromoPause', () => {
+  it('removes the 30th minute form every hour by moving every Section after it one minute back', () => {
+    const modifiedTracklist = removePromoPause(tracklistWithPromos);
+    const startTimes = modifiedTracklist.sections.map<number>(
+      (section) => section.startTime,
+    );
+
+    expect(startTimes).toStrictEqual([0, 0, 32, 1740, 1878, 5280, 5503]);
+  });
 });

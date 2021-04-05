@@ -40,7 +40,7 @@ const TracklistItem: React.FC<{ section: Section }> = ({ section }) => {
         <ListItemIcon className={classes.icon}>
           <Icon />
         </ListItemIcon>
-        <ListItemText primary={section.title} />
+        <ListItemText primary={`${section.startTime}: \t${section.title}`} />
         <ListItemSecondaryAction>
           <IconButton edge='end'>
             <Delete />

@@ -75,3 +75,51 @@ export const bookingDetailsList: BookingDetails[] = [
     studio: Studio.Studio1,
   },
 ];
+
+export const tracklistWithPromos: Tracklist = {
+  mp3: null,
+  name: 'Feber',
+  picture: null,
+  description: '',
+  tags: [],
+  sections: [
+    {
+      type: 'Chapter',
+      title: 'Husk \u00e5 fjern reprise fra Autoavvikler',
+      startTime: 0,
+    },
+    {
+      type: 'Jingle',
+      title: '\u00c5PNING - Feber',
+      startTime: 0,
+    },
+    {
+      type: 'Track',
+      title: 'Money Up (feat. Toro y Moi)',
+      artist: 'MadeinTYO, Toro y Moi',
+      startTime: 32,
+    },
+    {
+      type: 'Chapter',
+      title: 'Jay Rock - No Joke (FEBER)',
+      startTime: 1800,
+    },
+    {
+      type: 'Track',
+      title: 'Holy',
+      artist: 'Lil Wayne',
+      startTime: 1938,
+    },
+    {
+      type: 'Track',
+      title: 'Money Up (feat. Toro y Moi)',
+      artist: 'MadeinTYO, Toro y Moi',
+      startTime: 5400,
+    },
+    {
+      type: 'Chapter',
+      title: 'Jay Rock - No Joke (FEBER)',
+      startTime: 5623,
+    },
+  ],
+};

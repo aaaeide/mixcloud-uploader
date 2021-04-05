@@ -8,7 +8,7 @@ import { fetchBookingList, fetchBookingDetails } from 'api';
 import Navbar from 'components/Navbar';
 import BookingSelectionForm from 'components/BookingSelectionForm';
 import TracklistEditor from 'components/Tracklist';
-import { generateTracklist } from './generateTracklist';
+import { generateTracklist, removePromoPause } from './tracklistUtils';
 
 import {
   reducer,
@@ -64,7 +64,16 @@ const App: React.FC = () => {
       }),
     );
 
-    const generatedTracklist = generateTracklist(fetchedBookingDetails);
+    let generatedTracklist = generateTracklist(fetchedBookingDetails);
+
+    if (
+      // eslint-disable-next-line no-alert
+      window.confirm(
+        'Dersom det var promopauser da du spilte inn denne episoden og de har blitt klippet vekk før opplasting til MixCloud, er det sannsynligvis ønskelig å forskyve alle elementene som finner sted etter en promopause med minus x minutter, der x er antallet promopauser som fant sted før elementet. Trykk OK for å gjøre dette, Cancel for å fortsette uten å fjerne promopauser.',
+      )
+    ) {
+      generatedTracklist = removePromoPause(generatedTracklist);
+    }
 
     dispatch(setTracklist(generatedTracklist));
     dispatch(setBookingDetailsLoading(false));

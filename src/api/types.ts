@@ -98,7 +98,7 @@ export interface Tracklist {
 export interface Section {
   /** For determining what type of MC section this is. Jingles are the same as Chapters when published to MC. */
   type: 'Track' | 'Chapter' | 'Jingle';
-  /** FOR CHAPTERS: The name of a chapter section. FOR TRACKS: REQUIRED (if a track). The track section song title. */
+  /** FOR CHAPTERS: The name of a chapter section. FOR TRACKS: REQUIRED, The track section song title. */
   title: string;
   /** The time, in seconds (integer), at which section X starts. */
   startTime: number;
