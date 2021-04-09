@@ -8,6 +8,9 @@ export interface ReducerState {
   selectedBookings: Booking[];
   tracklist: Tracklist | null;
   bookingDetailsLoading: boolean;
+  title: string;
+  description: string;
+  ondemandUrl: string;
 }
 
 export const SELECT_DATE = 'SELECT_DATE';
@@ -17,6 +20,9 @@ export const SET_BOOKING_LIST_LOADING = 'SET_BOOKING_LIST_LOADING';
 export const SET_SELECTED_BOOKINGS = 'SET_SELECTED_BOOKINGS';
 export const SET_BOOKING_DETAILS_LOADING = 'SET_BOOKING_DETAILS_LOADING';
 export const SET_TRACKLIST = 'SET_TRACKLIST';
+export const SET_TITLE = 'SET_TITLE';
+export const SET_DESCRIPTION = 'SET_DESCRIPTION';
+export const SET_ONDEMAND_URL = 'SET_ONDEMAND_URL';
 
 export interface SelectDateAction {
   type: typeof SELECT_DATE;
@@ -53,6 +59,21 @@ export interface SetTracklistAction {
   payload: { tracklist: Tracklist };
 }
 
+export interface SetTitleAction {
+  type: typeof SET_TITLE;
+  payload: { title: string };
+}
+
+export interface SetDescriptionAction {
+  type: typeof SET_DESCRIPTION;
+  payload: { description: string };
+}
+
+export interface SetOndemandUrlAction {
+  type: typeof SET_ONDEMAND_URL;
+  payload: { ondemandUrl: string };
+}
+
 export type ReducerActionsType =
   | SelectDateAction
   | SelectStudioAction
@@ -60,4 +81,7 @@ export type ReducerActionsType =
   | SetBookingListLoadingAction
   | SetSelectedBookingsAction
   | SetBookingDetailsLoadingAction
-  | SetTracklistAction;
+  | SetTracklistAction
+  | SetTitleAction
+  | SetDescriptionAction
+  | SetOndemandUrlAction;

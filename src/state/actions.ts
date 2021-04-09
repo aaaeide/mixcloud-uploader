@@ -7,6 +7,9 @@ import {
   SET_SELECTED_BOOKINGS,
   SET_TRACKLIST,
   SET_BOOKING_DETAILS_LOADING,
+  SET_TITLE,
+  SET_DESCRIPTION,
+  SET_ONDEMAND_URL,
   SelectDateAction,
   SelectStudioAction,
   SetBookingListLoadingAction,
@@ -14,6 +17,9 @@ import {
   SetSelectedBookingsAction,
   SetTracklistAction,
   SetBookingDetailsLoadingAction,
+  SetTitleAction,
+  SetDescriptionAction,
+  SetOndemandUrlAction,
 } from './types';
 
 export function selectDate(date: Date | null): SelectDateAction {
@@ -70,5 +76,26 @@ export function setBookingDetailsLoading(
   return {
     type: SET_BOOKING_DETAILS_LOADING,
     payload: { isLoading },
+  };
+}
+
+export function setTitle(title: string): SetTitleAction {
+  return {
+    type: SET_TITLE,
+    payload: { title },
+  };
+}
+
+export function setDescription(description: string): SetDescriptionAction {
+  return {
+    type: SET_DESCRIPTION,
+    payload: { description },
+  };
+}
+
+export function setOndemandUrl(ondemandUrl: string): SetOndemandUrlAction {
+  return {
+    type: SET_ONDEMAND_URL,
+    payload: { ondemandUrl },
   };
 }

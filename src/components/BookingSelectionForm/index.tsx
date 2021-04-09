@@ -35,13 +35,13 @@ const BookingSelectionForm: React.FC<BookingSelectionFormProps> = ({
 
   return (
     <Grid container spacing={6}>
-      <Grid container justify='center' alignItems='center' xs={6}>
+      <Grid container item justify='center' alignItems='center' xs={6}>
         <DatePicker
           value={selectedDate}
           setValue={(d: Date | null) => dispatch(selectDate(d))}
         />
       </Grid>
-      <Grid container justify='center' alignItems='center' xs={6}>
+      <Grid container item justify='center' alignItems='center' xs={6}>
         <StudioPicker
           selectedStudio={selectedStudio}
           selectStudio={(s: Studio) => dispatch(selectStudio(s))}
@@ -56,7 +56,7 @@ const BookingSelectionForm: React.FC<BookingSelectionFormProps> = ({
           }
         />
       </Grid>
-      <Grid container justify='center' alignItems='center'>
+      <Grid container item justify='center' alignItems='center'>
         <Button variant='contained' color='secondary' onClick={onSubmit}>
           Generer tracklist
         </Button>

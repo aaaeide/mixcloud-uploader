@@ -8,6 +8,7 @@ import { fetchBookingList, fetchBookingDetails } from 'api';
 import Navbar from 'components/Navbar';
 import BookingSelectionForm from 'components/BookingSelectionForm';
 import TracklistEditor from 'components/Tracklist';
+import DetailsForm from 'components/DetailsForm';
 import { generateTracklist, removePromoPause } from './tracklistUtils';
 
 import {
@@ -85,14 +86,15 @@ const App: React.FC = () => {
         <Navbar />
         <Toolbar />
       </Grid>
-      <Grid item md={7} sm={12}>
+      <Grid item lg={6} md={7} sm={12}>
         <BookingSelectionForm
           state={state}
           dispatch={dispatch}
           onSubmit={fetchDetailsAndGenerateTracklist}
         />
+        <DetailsForm state={state} dispatch={dispatch} />
       </Grid>
-      <Grid item md={5} sm={12}>
+      <Grid item lg={6} md={5} sm={12}>
         <TracklistEditor
           tracklist={tracklist}
           isLoading={bookingDetailsLoading}

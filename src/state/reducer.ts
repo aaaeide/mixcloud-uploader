@@ -9,6 +9,9 @@ import {
   SET_TRACKLIST,
   SET_BOOKING_DETAILS_LOADING,
   ReducerActionsType,
+  SET_TITLE,
+  SET_DESCRIPTION,
+  SET_ONDEMAND_URL,
 } from './types';
 
 export const initialState: ReducerState = {
@@ -19,6 +22,9 @@ export const initialState: ReducerState = {
   selectedBookings: [],
   tracklist: null,
   bookingDetailsLoading: false,
+  title: '',
+  description: '',
+  ondemandUrl: '',
 };
 
 export function reducer(
@@ -61,6 +67,21 @@ export function reducer(
       return {
         ...state,
         bookingDetailsLoading: action.payload.isLoading,
+      };
+    case SET_TITLE:
+      return {
+        ...state,
+        title: action.payload.title,
+      };
+    case SET_DESCRIPTION:
+      return {
+        ...state,
+        description: action.payload.description,
+      };
+    case SET_ONDEMAND_URL:
+      return {
+        ...state,
+        ondemandUrl: action.payload.ondemandUrl,
       };
     default:
       return state;
