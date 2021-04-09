@@ -39,6 +39,7 @@ interface DetailsFormProps {
 const DetailsForm: React.FC<DetailsFormProps> = ({ state, dispatch }) => {
   const classes = useStyles();
   const { title, description, ondemandUrl } = state;
+  const uploadDisabled = state.tracklist === null;
 
   return (
     <form noValidate autoComplete='off' className={classes.root}>
@@ -75,8 +76,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ state, dispatch }) => {
           />
         </Grid>
         <Grid container item justify='center' alignItems='center'>
-          <Button variant='contained' color='secondary'>
-            Last opp til MixCloud
+          <Button
+            variant='contained'
+            color='secondary'
+            disabled={uploadDisabled}
+          >
+            {uploadDisabled
+              ? 'Ingen studiobookinger valgt'
+              : 'Last opp til MixCloud'}
           </Button>
         </Grid>
       </Grid>

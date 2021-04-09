@@ -68,6 +68,7 @@ const App: React.FC = () => {
     let generatedTracklist = generateTracklist(fetchedBookingDetails);
 
     if (
+      generatedTracklist !== null &&
       // eslint-disable-next-line no-alert
       window.confirm(
         'Dersom det var promopauser da du spilte inn denne episoden og de har blitt klippet vekk før opplasting til MixCloud, er det sannsynligvis ønskelig å forskyve alle elementene som finner sted etter en promopause med minus x minutter, der x er antallet promopauser som fant sted før elementet. Trykk OK for å gjøre dette, Cancel for å fortsette uten å fjerne promopauser.',

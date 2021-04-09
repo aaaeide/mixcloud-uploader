@@ -3,7 +3,11 @@ import { BookingDetails, Element, Tracklist, Section } from 'api';
 
 export function generateTracklist(
   bookingDetailList: BookingDetails[],
-): Tracklist {
+): Tracklist | null {
+  if (bookingDetailList.length === 0) {
+    return null;
+  }
+
   const sections: Section[] = [];
   const elements = bookingDetailList.reduce<Element[]>(
     (els, bd) => els.concat(bd.elements),

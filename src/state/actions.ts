@@ -63,7 +63,7 @@ export function setSelectedBookings(
   };
 }
 
-export function setTracklist(tracklist: Tracklist): SetTracklistAction {
+export function setTracklist(tracklist: Tracklist | null): SetTracklistAction {
   return {
     type: SET_TRACKLIST,
     payload: { tracklist },

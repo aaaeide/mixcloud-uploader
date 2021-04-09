@@ -56,7 +56,7 @@ export interface SetBookingDetailsLoadingAction {
 
 export interface SetTracklistAction {
   type: typeof SET_TRACKLIST;
-  payload: { tracklist: Tracklist };
+  payload: { tracklist: Tracklist | null };
 }
 
 export interface SetTitleAction {
