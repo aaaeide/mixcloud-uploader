@@ -18,12 +18,23 @@ import {
   setBookingListLoading,
   setTracklist,
   setBookingDetailsLoading,
+  setAuthObject,
 } from '../state';
 
-const App: React.FC<{ clientId: string; clientSecret: string }> = ({
-  clientId,
-  clientSecret,
-}) => {
+interface AppProps {
+  clientId: string;
+  clientSecret: string;
+}
+
+interface MixCloudAuthResponse {
+  // eslint-disable-next-line camelcase
+  access_token: string;
+}
+interface MixCloudUserInfoResponse {
+  username: string;
+}
+
+const App: React.FC<AppProps> = ({ clientId, clientSecret }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
     selectedDate,
@@ -33,6 +44,9 @@ const App: React.FC<{ clientId: string; clientSecret: string }> = ({
     bookingDetailsLoading,
   } = state;
 
+  const queryString = window.location.search;
+  const params = new URLSearchParams(queryString);
+
   function redirectToLogin(): void {
     const redirectUri = window.location.href;
     window.location.assign(
@@ -41,19 +55,34 @@ const App: React.FC<{ clientId: string; clientSecret: string }> = ({
   }
 
   useEffect(() => {
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    const redirectUri = window.location.href.split('?')[0];
-    if (params.has('code')) {
-      fetch(
-        `https://www.mixcloud.com/oauth/access_token?client_id=${clientId}&redirect_uri=${redirectUri}&client_secret=${clientSecret}&code=${params.get(
-          'code',
-        )}`,
-      )
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+    async function fetchAuthDetails(
+      code: string,
+      redirectUri: string,
+    ): Promise<void> {
+      const tokenFetchResponse = await fetch(
+        `https://www.mixcloud.com/oauth/access_token?client_id=${clientId}&redirect_uri=${redirectUri}&client_secret=${clientSecret}&code=${code}`,
+      );
+      const accessToken = ((await tokenFetchResponse.json()) as MixCloudAuthResponse)
+        .access_token;
+
+      const userInfoFetchResponse = await fetch(
+        `https://api.mixcloud.com/me/?access_token=${accessToken}`,
+      );
+      const {
+        username,
+      } = (await userInfoFetchResponse.json()) as MixCloudUserInfoResponse;
+
+      console.log(accessToken, username);
+      dispatch(setAuthObject(accessToken, username));
     }
-  });
+
+    const redirectUri = window.location.href.split('?')[0];
+    if (params.has('code') && state.authObject === null) {
+      fetchAuthDetails(params.get('code') as string, redirectUri).then(() =>
+        window.location.replace(redirectUri),
+      );
+    }
+  }, [clientId, clientSecret, params, state.authObject]);
 
   /**
    * Fetch booking list whenever selectedDate changes.
@@ -109,7 +138,7 @@ const App: React.FC<{ clientId: string; clientSecret: string }> = ({
   return (
     <Grid container spacing={6}>
       <Grid container justify='center' alignItems='center'>
-        <Navbar login={redirectToLogin} />
+        <Navbar login={redirectToLogin} authObject={state.authObject} />
         <Toolbar />
       </Grid>
       <Grid item lg={6} md={7} sm={12}>

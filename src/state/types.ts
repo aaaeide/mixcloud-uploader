@@ -1,5 +1,10 @@
 import { Booking, Studio, Tracklist } from '../api';
 
+export interface AuthObject {
+  accessToken: string;
+  username: string;
+}
+
 export interface ReducerState {
   selectedDate: Date | null;
   selectedStudio: Studio;
@@ -11,6 +16,7 @@ export interface ReducerState {
   title: string;
   description: string;
   ondemandUrl: string;
+  authObject: AuthObject | null;
 }
 
 export const SELECT_DATE = 'SELECT_DATE';
@@ -23,7 +29,7 @@ export const SET_TRACKLIST = 'SET_TRACKLIST';
 export const SET_TITLE = 'SET_TITLE';
 export const SET_DESCRIPTION = 'SET_DESCRIPTION';
 export const SET_ONDEMAND_URL = 'SET_ONDEMAND_URL';
-
+export const SET_AUTH_OBJECT = 'SET_AUTH_OBJECT';
 export interface SelectDateAction {
   type: typeof SELECT_DATE;
   payload: { date: Date | null };
@@ -74,6 +80,11 @@ export interface SetOndemandUrlAction {
   payload: { ondemandUrl: string };
 }
 
+export interface SetAuthObjectAction {
+  type: typeof SET_AUTH_OBJECT;
+  payload: { authObject: AuthObject };
+}
+
 export type ReducerActionsType =
   | SelectDateAction
   | SelectStudioAction
@@ -84,4 +95,5 @@ export type ReducerActionsType =
   | SetTracklistAction
   | SetTitleAction
   | SetDescriptionAction
-  | SetOndemandUrlAction;
+  | SetOndemandUrlAction
+  | SetAuthObjectAction;

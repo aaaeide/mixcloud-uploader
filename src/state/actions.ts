@@ -10,6 +10,7 @@ import {
   SET_TITLE,
   SET_DESCRIPTION,
   SET_ONDEMAND_URL,
+  SET_AUTH_OBJECT,
   SelectDateAction,
   SelectStudioAction,
   SetBookingListLoadingAction,
@@ -20,6 +21,7 @@ import {
   SetTitleAction,
   SetDescriptionAction,
   SetOndemandUrlAction,
+  SetAuthObjectAction,
 } from './types';
 
 export function selectDate(date: Date | null): SelectDateAction {
@@ -97,5 +99,15 @@ export function setOndemandUrl(ondemandUrl: string): SetOndemandUrlAction {
   return {
     type: SET_ONDEMAND_URL,
     payload: { ondemandUrl },
+  };
+}
+
+export function setAuthObject(
+  accessToken: string,
+  username: string,
+): SetAuthObjectAction {
+  return {
+    type: SET_AUTH_OBJECT,
+    payload: { authObject: { accessToken, username } },
   };
 }

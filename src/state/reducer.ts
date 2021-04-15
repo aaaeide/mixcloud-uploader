@@ -12,6 +12,7 @@ import {
   SET_TITLE,
   SET_DESCRIPTION,
   SET_ONDEMAND_URL,
+  SET_AUTH_OBJECT,
 } from './types';
 
 export const initialState: ReducerState = {
@@ -25,6 +26,7 @@ export const initialState: ReducerState = {
   title: '',
   description: '',
   ondemandUrl: '',
+  authObject: null,
 };
 
 export function reducer(
@@ -82,6 +84,11 @@ export function reducer(
       return {
         ...state,
         ondemandUrl: action.payload.ondemandUrl,
+      };
+    case SET_AUTH_OBJECT:
+      return {
+        ...state,
+        authObject: action.payload.authObject,
       };
     default:
       return state;
