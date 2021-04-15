@@ -11,12 +11,18 @@ const useStyles = makeStyles({
   },
 });
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  login: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ login }) => {
   const classes = useStyles();
   return (
     <AppBar className={classes.root} position='sticky'>
       <Toolbar>
-        <Button color='inherit'>Logg inn på Mixcloud</Button>
+        <Button onClick={login} color='inherit'>
+          Logg inn på Mixcloud
+        </Button>
       </Toolbar>
     </AppBar>
   );

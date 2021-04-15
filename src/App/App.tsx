@@ -20,7 +20,10 @@ import {
   setBookingDetailsLoading,
 } from '../state';
 
-const App: React.FC = () => {
+const App: React.FC<{ clientId: string; clientSecret: string }> = ({
+  clientId,
+  clientSecret,
+}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
     selectedDate,
@@ -29,6 +32,28 @@ const App: React.FC = () => {
     tracklist,
     bookingDetailsLoading,
   } = state;
+
+  function redirectToLogin(): void {
+    const redirectUri = window.location.href;
+    window.location.assign(
+      `https://www.mixcloud.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`,
+    );
+  }
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const redirectUri = window.location.href.split('?')[0];
+    if (params.has('code')) {
+      fetch(
+        `https://www.mixcloud.com/oauth/access_token?client_id=${clientId}&redirect_uri=${redirectUri}&client_secret=${clientSecret}&code=${params.get(
+          'code',
+        )}`,
+      )
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+  });
 
   /**
    * Fetch booking list whenever selectedDate changes.
@@ -84,7 +109,7 @@ const App: React.FC = () => {
   return (
     <Grid container spacing={6}>
       <Grid container justify='center' alignItems='center'>
-        <Navbar />
+        <Navbar login={redirectToLogin} />
         <Toolbar />
       </Grid>
       <Grid item lg={6} md={7} sm={12}>
