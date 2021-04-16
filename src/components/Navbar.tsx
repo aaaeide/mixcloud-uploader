@@ -9,6 +9,8 @@ const useStyles = makeStyles({
   root: {
     flexDirection: 'row-reverse',
     padding: '0 2em',
+    fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+    fontSize: '16px',
   },
 });
 
@@ -19,7 +21,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ login, authObject }) => {
   const classes = useStyles();
-  console.log('navbar recv authovj ', authObject);
+
   return (
     <AppBar className={classes.root} position='sticky'>
       <Toolbar>

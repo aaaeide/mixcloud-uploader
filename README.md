@@ -9,7 +9,7 @@ PoC. Todo:
 - [x] User should be able to easily unreflect promo pause (30th minute) from tracklist
 - [x] Add show name, picture, description and ~~mp3 file~~ URL to audio file from the Radio Revolt OnDemand URL api
 - [ ] Generate HTTP POST according to MC spec
-- [ ] Setup MixCloud Auth
+- [x] Setup MixCloud Auth
 - [ ] Actually publish the thing
 - [ ] (maybe) Add setting for filtering promo bookings from booking selection dropdown
 

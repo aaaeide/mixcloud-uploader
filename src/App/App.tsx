@@ -72,15 +72,12 @@ const App: React.FC<AppProps> = ({ clientId, clientSecret }) => {
         username,
       } = (await userInfoFetchResponse.json()) as MixCloudUserInfoResponse;
 
-      console.log(accessToken, username);
       dispatch(setAuthObject(accessToken, username));
     }
 
     const redirectUri = window.location.href.split('?')[0];
     if (params.has('code') && state.authObject === null) {
-      fetchAuthDetails(params.get('code') as string, redirectUri).then(() =>
-        window.location.replace(redirectUri),
-      );
+      fetchAuthDetails(params.get('code') as string, redirectUri);
     }
   }, [clientId, clientSecret, params, state.authObject]);
 
