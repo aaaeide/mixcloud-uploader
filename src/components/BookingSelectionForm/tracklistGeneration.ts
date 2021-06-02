@@ -1,5 +1,59 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-nested-ternary */
-import { BookingDetails, Element, Tracklist, Section } from 'api';
+import React from 'react';
+import {
+  BookingDetails,
+  Element,
+  Tracklist,
+  Section,
+  Booking,
+  fetchBookingDetails,
+} from 'api';
+
+import {
+  ReducerActionsType,
+  setBookingDetailsLoading,
+  setTracklist,
+} from 'state';
+
+const PROMO_PAUSE_REMOVAL_EXPLANATION =
+  'Dersom det var promopauser da du spilte inn denne episoden og de har blitt klippet vekk før opplasting til MixCloud, er det sannsynligvis ønskelig å forskyve alle elementene som finner sted etter en promopause med minus x minutter, der x er antallet promopauser som fant sted før elementet. Trykk OK for å gjøre dette, Cancel for å fortsette uten å fjerne promopauser.';
+
+/**
+ * For when you've selected some studio bookings and wish to generate a tracklist.
+ */
+export async function fetchDetailsAndGenerateTracklist(
+  dispatch: React.Dispatch<ReducerActionsType>,
+  selectedBookings: Booking[],
+): Promise<void> {
+  dispatch(setBookingDetailsLoading(true));
+
+  const fetchedBookingDetails = await Promise.all(
+    selectedBookings.map((booking) => {
+      const { startTime: date, id, studio } = booking;
+
+      return fetchBookingDetails(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        date.getDate(),
+        studio,
+        id,
+      );
+    }),
+  );
+
+  let generatedTracklist = generateTracklist(fetchedBookingDetails);
+
+  if (
+    generatedTracklist !== null &&
+    window.confirm(PROMO_PAUSE_REMOVAL_EXPLANATION)
+  ) {
+    generatedTracklist = removePromoPause(generatedTracklist);
+  }
+
+  dispatch(setTracklist(generatedTracklist));
+  dispatch(setBookingDetailsLoading(false));
+}
 
 export function generateTracklist(
   bookingDetailList: BookingDetails[],

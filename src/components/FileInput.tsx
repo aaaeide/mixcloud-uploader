@@ -30,7 +30,6 @@ export const FileInput: React.FC<FileInputProps> = ({
       alert('File too large! Please try again with a smaller file.');
       return;
     }
-    console.log(file);
 
     onFileSelect(evt.target.files[0]);
   };

@@ -1,13 +1,18 @@
 import { Tracklist, Element } from 'api';
 import { bookingDetailsList, tracklistWithPromos } from 'resources/tracklist';
-import { generateTracklist, removePromoPause } from './tracklistUtils';
+import { generateTracklist, removePromoPause } from './tracklistGeneration';
 
 describe('generateTracklist', () => {
   let generatedTracklist: Tracklist;
   let elements: Element[];
 
   beforeEach(() => {
-    generatedTracklist = generateTracklist(bookingDetailsList);
+    const nullUnsafeGeneratedTracklist = generateTracklist(bookingDetailsList);
+    if (nullUnsafeGeneratedTracklist === null) {
+      throw new Error('Bad test data generated nully tracklist!!');
+    }
+
+    generatedTracklist = nullUnsafeGeneratedTracklist;
     elements = bookingDetailsList.reduce<Element[]>(
       (els, bd) => els.concat(bd.elements),
       [],
