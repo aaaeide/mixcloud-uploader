@@ -34,9 +34,14 @@ const useStyles = makeStyles({
 interface DetailsFormProps {
   state: ReducerState;
   dispatch: React.Dispatch<ReducerActionsType>;
+  submit: (/* pic: File */) => Promise<void>;
 }
 
-const DetailsForm: React.FC<DetailsFormProps> = ({ state, dispatch }) => {
+const DetailsForm: React.FC<DetailsFormProps> = ({
+  state,
+  dispatch,
+  submit,
+}) => {
   const classes = useStyles();
   const { title, description, ondemandUrl } = state;
   const uploadDisabled = state.tracklist === null;
@@ -80,6 +85,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ state, dispatch }) => {
             variant='contained'
             color='secondary'
             disabled={uploadDisabled}
+            onClick={submit}
           >
             {uploadDisabled
               ? 'Ingen studiobookinger valgt'

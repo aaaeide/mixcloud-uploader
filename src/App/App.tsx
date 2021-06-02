@@ -54,6 +54,10 @@ const App: React.FC<AppProps> = ({ clientId, clientSecret }) => {
     );
   }
 
+  /**
+   * On page load, check if we've received code param in URL (meaning we've been redirected from  MixCloud Auth). If so, fetch access token
+   * and username from MixCloud.
+   */
   useEffect(() => {
     async function fetchAuthDetails(
       code: string,
@@ -132,6 +136,49 @@ const App: React.FC<AppProps> = ({ clientId, clientSecret }) => {
     dispatch(setBookingDetailsLoading(false));
   }
 
+  /**
+   * Upload the show to MixCloud.
+   *
+   * Per https://www.mixcloud.com/developers/#uploads:
+   * The MP3, metadata and image should all be uploaded in a single multipart/form-data
+   *
+   * @param picture A picture for the upload. Should not be larger than 10485760 bytes.
+   */
+  async function publish(/* picture: File */): Promise<void> {
+    const data = new FormData();
+
+    data.append('name', state.title);
+    /* data.append('picture', picture); */
+    data.append('description', state.description);
+
+    if (state.tracklist === null) {
+      alert('could not upload');
+      return;
+    }
+
+    state.tracklist.sections.forEach((section, idx) => {
+      switch (section.type) {
+        case 'Track':
+          data.append(`sections-${idx}-artist`, section.artist ?? '');
+          data.append(`sections-${idx}-song`, section.title);
+          data.append(`sections-${idx}-start_time`, `${section.startTime}`);
+          break;
+        case 'Chapter':
+        case 'Jingle':
+          data.append(`sections-${idx}-chapter`, section.title);
+          data.append(`sections-${idx}-start_time`, `${section.startTime}`);
+          break;
+        default:
+          console.error(`unknown section type: ${section.type}`);
+          break;
+      }
+    });
+
+    /* Fetch mp3 file from ondemand url. */
+    const response = await fetch(state.ondemandUrl, { mode: 'no-cors' });
+    console.log('RESPONSE', response);
+  }
+
   return (
     <Grid container spacing={6}>
       <Grid container justify='center' alignItems='center'>
@@ -144,7 +191,11 @@ const App: React.FC<AppProps> = ({ clientId, clientSecret }) => {
           dispatch={dispatch}
           onSubmit={fetchDetailsAndGenerateTracklist}
         />
-        <DetailsForm state={state} dispatch={dispatch} />
+        <DetailsForm
+          state={state}
+          dispatch={dispatch}
+          submit={(/* pic: File */) => publish(/* pic */)}
+        />
       </Grid>
       <Grid item lg={6} md={5} sm={12}>
         <TracklistEditor
