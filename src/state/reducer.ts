@@ -12,6 +12,7 @@ import {
   SET_TITLE,
   SET_DESCRIPTION,
   SET_AUTH_OBJECT,
+  SET_PICTURE,
 } from './types';
 
 export const initialState: ReducerState = {
@@ -25,13 +26,15 @@ export const initialState: ReducerState = {
   title: '',
   description: '',
   authObject: null,
+  picture: null,
+  audio: null,
 };
 
 export function reducer(
   state: ReducerState,
   action: ReducerActionsType,
 ): ReducerState {
-  /* console.log('REDUCER RECVD ACTION', action); */
+  console.log('REDUCER RECVD ACTION', action);
   switch (action.type) {
     case SELECT_DATE:
       return {
@@ -82,6 +85,16 @@ export function reducer(
       return {
         ...state,
         authObject: action.payload.authObject,
+      };
+    case SET_PICTURE:
+      return {
+        ...state,
+        picture: action.payload.picture,
+      };
+    case 'SET_AUDIO':
+      return {
+        ...state,
+        audio: action.payload.audio,
       };
     default:
       return state;

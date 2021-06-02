@@ -16,6 +16,8 @@ export interface ReducerState {
   title: string;
   description: string;
   authObject: AuthObject | null;
+  picture: File | null;
+  audio: File | null;
 }
 
 export const SELECT_DATE = 'SELECT_DATE';
@@ -28,6 +30,8 @@ export const SET_TRACKLIST = 'SET_TRACKLIST';
 export const SET_TITLE = 'SET_TITLE';
 export const SET_DESCRIPTION = 'SET_DESCRIPTION';
 export const SET_AUTH_OBJECT = 'SET_AUTH_OBJECT';
+export const SET_PICTURE = 'SET_PICTURE';
+export const SET_AUDIO = 'SET_AUDIO';
 export interface SelectDateAction {
   type: typeof SELECT_DATE;
   payload: { date: Date | null };
@@ -78,6 +82,16 @@ export interface SetAuthObjectAction {
   payload: { authObject: AuthObject };
 }
 
+export interface SetPictureAction {
+  type: typeof SET_PICTURE;
+  payload: { picture: File | null };
+}
+
+export interface SetAudioAction {
+  type: typeof SET_AUDIO;
+  payload: { audio: File | null };
+}
+
 export type ReducerActionsType =
   | SelectDateAction
   | SelectStudioAction
@@ -88,4 +102,6 @@ export type ReducerActionsType =
   | SetTracklistAction
   | SetTitleAction
   | SetDescriptionAction
-  | SetAuthObjectAction;
+  | SetAuthObjectAction
+  | SetPictureAction
+  | SetAudioAction;

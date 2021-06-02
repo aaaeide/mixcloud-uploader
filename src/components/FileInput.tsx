@@ -1,13 +1,17 @@
 import React, { useRef } from 'react';
 
 interface FileInputProps {
+  maxSize?: number;
   onFileSelect: (f: File) => void;
 }
 
 /**
  * Wrapper around the HTML file input that handles single file uploads.
  */
-export const FileInput: React.FC<FileInputProps> = ({ onFileSelect }) => {
+export const FileInput: React.FC<FileInputProps> = ({
+  onFileSelect,
+  maxSize = Number.MAX_SAFE_INTEGER,
+}) => {
   const inputEl = useRef(null);
 
   const handleFileInput: React.ChangeEventHandler<HTMLInputElement> = (
@@ -15,12 +19,20 @@ export const FileInput: React.FC<FileInputProps> = ({ onFileSelect }) => {
   ): void => {
     evt.preventDefault();
 
-    if (evt.target.files !== null && evt.target.files.length === 1) {
-      onFileSelect(evt.target.files[0]);
+    if (evt.target.files === null || evt.target.files.length !== 1) {
+      alert('Something went wrong! Please try again.');
       return;
     }
 
-    alert('Noe gikk galt under opplastingen av filen din. Prøv igjen.');
+    const file = evt.target.files[0];
+
+    if (file.size > maxSize) {
+      alert('File too large! Please try again with a smaller file.');
+      return;
+    }
+    console.log(file);
+
+    onFileSelect(evt.target.files[0]);
   };
 
   return <input type='file' ref={inputEl} onChange={handleFileInput} />;

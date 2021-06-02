@@ -140,18 +140,31 @@ const App: React.FC<AppProps> = ({ clientId, clientSecret }) => {
    *
    * Per https://www.mixcloud.com/developers/#uploads:
    * The MP3, metadata and image should all be uploaded in a single multipart/form-data
-   *
-   * @param picture A picture for the upload. Should not be larger than 10485760 bytes.
    */
   async function publish(/* picture: File */): Promise<void> {
     const data = new FormData();
 
+    if (state.title === null) {
+      alert('Could not upload: No title given');
+      return;
+    }
+
     data.append('name', state.title);
-    /* data.append('picture', picture); */
     data.append('description', state.description);
 
+    if (state.picture !== null) {
+      data.append('picture', state.picture);
+    }
+
+    if (state.audio === null) {
+      alert('Could not upload: No audio file selected');
+      return;
+    }
+
+    data.append('mp3', state.audio);
+
     if (state.tracklist === null) {
-      alert('could not upload');
+      alert('Could not upload: No tracklist');
       return;
     }
 
@@ -173,9 +186,30 @@ const App: React.FC<AppProps> = ({ clientId, clientSecret }) => {
       }
     });
 
-    /* Fetch mp3 file from ondemand url. */
-    /* const response = await fetch(state.ondemandUrl, { mode: 'no-cors' });
-    console.log('RESPONSE', response); */
+    if (state.authObject === null) {
+      alert('Could not upload: You are not logged in');
+      return;
+    }
+
+    fetch(
+      `https://api.mixcloud.com/upload/?access_token=${state.authObject.accessToken}`,
+      {
+        method: 'POST',
+        body: data,
+        mode: 'no-cors',
+      },
+    )
+      .then(() => {
+        alert(
+          "If your upload was successful, you should see it on your MixCloud page within a few minutes (don't hold your breath)",
+        );
+        window.location.assign(window.location.href.split('?')[0]);
+      })
+      .catch(() => {
+        alert(
+          'Something went wrong with your upload. Try reloading the page and signing in to Mixcloud again.',
+        );
+      });
   }
 
   return (
@@ -185,15 +219,15 @@ const App: React.FC<AppProps> = ({ clientId, clientSecret }) => {
         <Toolbar />
       </Grid>
       <Grid item lg={6} md={7} sm={12}>
+        <DetailsForm
+          state={state}
+          dispatch={dispatch}
+          submit={() => publish()}
+        />
         <BookingSelectionForm
           state={state}
           dispatch={dispatch}
           onSubmit={fetchDetailsAndGenerateTracklist}
-        />
-        <DetailsForm
-          state={state}
-          dispatch={dispatch}
-          submit={(/* pic: File */) => publish(/* pic */)}
         />
       </Grid>
       <Grid item lg={6} md={5} sm={12}>

@@ -10,6 +10,8 @@ import {
   SET_TITLE,
   SET_DESCRIPTION,
   SET_AUTH_OBJECT,
+  SET_PICTURE,
+  SET_AUDIO,
   SelectDateAction,
   SelectStudioAction,
   SetBookingListLoadingAction,
@@ -20,6 +22,8 @@ import {
   SetTitleAction,
   SetDescriptionAction,
   SetAuthObjectAction,
+  SetPictureAction,
+  SetAudioAction,
 } from './types';
 
 export function selectDate(date: Date | null): SelectDateAction {
@@ -100,5 +104,19 @@ export function setAuthObject(
   return {
     type: SET_AUTH_OBJECT,
     payload: { authObject: { accessToken, username } },
+  };
+}
+
+export function setPicture(picture: File | null): SetPictureAction {
+  return {
+    type: SET_PICTURE,
+    payload: { picture },
+  };
+}
+
+export function setAudio(audio: File | null): SetAudioAction {
+  return {
+    type: SET_AUDIO,
+    payload: { audio },
   };
 }

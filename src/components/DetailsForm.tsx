@@ -10,6 +10,8 @@ import {
   ReducerActionsType,
   setTitle,
   setDescription,
+  setPicture,
+  setAudio,
 } from 'state';
 
 import { FileInput } from 'components/FileInput';
@@ -35,7 +37,7 @@ const useStyles = makeStyles({
 interface DetailsFormProps {
   state: ReducerState;
   dispatch: React.Dispatch<ReducerActionsType>;
-  submit: (/* pic: File */) => Promise<void>;
+  submit: () => Promise<void>;
 }
 
 const DetailsForm: React.FC<DetailsFormProps> = ({
@@ -70,11 +72,17 @@ const DetailsForm: React.FC<DetailsFormProps> = ({
         </Grid>
         <Grid item xs={6}>
           <InputLabel className={classes.label}>Last opp bilde</InputLabel>
-          <FileInput onFileSelect={(files) => console.log(files)} />
+          <FileInput
+            maxSize={10485760} /* Magic number from the MixCloud docs. */
+            onFileSelect={(file) => dispatch(setPicture(file))}
+          />
         </Grid>
         <Grid item xs={6}>
           <InputLabel className={classes.label}>Last opp lydfil</InputLabel>
-          <input type='file' />
+          <FileInput
+            maxSize={4294967296} /* Magic number from the MixCloud docs. */
+            onFileSelect={(file) => dispatch(setAudio(file))}
+          />
         </Grid>
         <Grid container item justify='center' alignItems='center'>
           <Button
