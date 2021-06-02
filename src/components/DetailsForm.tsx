@@ -10,8 +10,9 @@ import {
   ReducerActionsType,
   setTitle,
   setDescription,
-  setOndemandUrl,
 } from 'state';
+
+import { FileInput } from 'components/FileInput';
 
 const useStyles = makeStyles({
   root: {
@@ -43,7 +44,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({
   submit,
 }) => {
   const classes = useStyles();
-  const { title, description, ondemandUrl } = state;
+  const { title, description } = state;
   const uploadDisabled = state.tracklist === null;
 
   return (
@@ -68,17 +69,12 @@ const DetailsForm: React.FC<DetailsFormProps> = ({
           />
         </Grid>
         <Grid item xs={6}>
-          <InputLabel className={classes.label}>Velg bilde</InputLabel>
-          <input type='file' />
+          <InputLabel className={classes.label}>Last opp bilde</InputLabel>
+          <FileInput onFileSelect={(files) => console.log(files)} />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label='OnDemand URL'
-            variant='outlined'
-            fullWidth
-            value={ondemandUrl}
-            onChange={(evt) => dispatch(setOndemandUrl(evt.target.value))}
-          />
+        <Grid item xs={6}>
+          <InputLabel className={classes.label}>Last opp lydfil</InputLabel>
+          <input type='file' />
         </Grid>
         <Grid container item justify='center' alignItems='center'>
           <Button

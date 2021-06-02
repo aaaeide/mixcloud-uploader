@@ -11,7 +11,6 @@ import {
   ReducerActionsType,
   SET_TITLE,
   SET_DESCRIPTION,
-  SET_ONDEMAND_URL,
   SET_AUTH_OBJECT,
 } from './types';
 
@@ -25,7 +24,6 @@ export const initialState: ReducerState = {
   bookingDetailsLoading: false,
   title: '',
   description: '',
-  ondemandUrl: '',
   authObject: null,
 };
 
@@ -79,11 +77,6 @@ export function reducer(
       return {
         ...state,
         description: action.payload.description,
-      };
-    case SET_ONDEMAND_URL:
-      return {
-        ...state,
-        ondemandUrl: action.payload.ondemandUrl,
       };
     case SET_AUTH_OBJECT:
       return {

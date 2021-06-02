@@ -15,7 +15,6 @@ export interface ReducerState {
   bookingDetailsLoading: boolean;
   title: string;
   description: string;
-  ondemandUrl: string;
   authObject: AuthObject | null;
 }
 
@@ -28,7 +27,6 @@ export const SET_BOOKING_DETAILS_LOADING = 'SET_BOOKING_DETAILS_LOADING';
 export const SET_TRACKLIST = 'SET_TRACKLIST';
 export const SET_TITLE = 'SET_TITLE';
 export const SET_DESCRIPTION = 'SET_DESCRIPTION';
-export const SET_ONDEMAND_URL = 'SET_ONDEMAND_URL';
 export const SET_AUTH_OBJECT = 'SET_AUTH_OBJECT';
 export interface SelectDateAction {
   type: typeof SELECT_DATE;
@@ -75,11 +73,6 @@ export interface SetDescriptionAction {
   payload: { description: string };
 }
 
-export interface SetOndemandUrlAction {
-  type: typeof SET_ONDEMAND_URL;
-  payload: { ondemandUrl: string };
-}
-
 export interface SetAuthObjectAction {
   type: typeof SET_AUTH_OBJECT;
   payload: { authObject: AuthObject };
@@ -95,5 +88,4 @@ export type ReducerActionsType =
   | SetTracklistAction
   | SetTitleAction
   | SetDescriptionAction
-  | SetOndemandUrlAction
   | SetAuthObjectAction;

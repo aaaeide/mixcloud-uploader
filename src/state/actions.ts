@@ -9,7 +9,6 @@ import {
   SET_BOOKING_DETAILS_LOADING,
   SET_TITLE,
   SET_DESCRIPTION,
-  SET_ONDEMAND_URL,
   SET_AUTH_OBJECT,
   SelectDateAction,
   SelectStudioAction,
@@ -20,7 +19,6 @@ import {
   SetBookingDetailsLoadingAction,
   SetTitleAction,
   SetDescriptionAction,
-  SetOndemandUrlAction,
   SetAuthObjectAction,
 } from './types';
 
@@ -92,13 +90,6 @@ export function setDescription(description: string): SetDescriptionAction {
   return {
     type: SET_DESCRIPTION,
     payload: { description },
-  };
-}
-
-export function setOndemandUrl(ondemandUrl: string): SetOndemandUrlAction {
-  return {
-    type: SET_ONDEMAND_URL,
-    payload: { ondemandUrl },
   };
 }
 
